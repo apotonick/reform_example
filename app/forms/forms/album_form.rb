@@ -5,16 +5,14 @@ module Forms
 
     property :title
 
-    collection :songs do
+    collection :songs, populate_if_empty: lambda { |*| Song.new } do
       property :name
       validates :name, presence: true
     end
 
-    validates :title, presence: true
+    # this validation only gets triggered when params doesn't contain any songs attributes at all.
+    validates :songs, :length => {minimum: 1} # yeah, album without any songs doesn't make sense.
 
-    def save
-      super
-      model.save
-    end
+    validates :title, presence: true
   end
 end

@@ -1,5 +1,7 @@
 class AlbumsController < ApplicationController
 
+  # TODO: coercion (length)
+
   def index
     @albums = Album.all
   end
@@ -9,12 +11,9 @@ class AlbumsController < ApplicationController
   end
 
   def new
-    # build random amount of songs
-    # (1+rand(7)).ceil.times do |i|
-    #   album.songs.build
     # end
     album = Album.new(songs: [Song.new, Song.new])
-    @form = Forms::AlbumForm.new(album)
+    @form = Forms::AlbumForm.new(album) # TODO: tell Reform to display 2 empty song forms?
   end
 
   def edit
@@ -23,11 +22,8 @@ class AlbumsController < ApplicationController
   end
 
   def create
-    # how you could do it dynamically..(for now)
-    # params[:album][:songs_attributes].size.times do |i|
-    #   album.songs.build
-    # end
-    album = Album.new(songs: [Song.new, Song.new])
+    # album = Album.new(songs: [Song.new, Song.new]) # this would be the clean way.
+    album = Album.new # however, Reform can create the nested songs for you in #validate.
     @form = Forms::AlbumForm.new(album)
 
     if @form.validate(params["album"])
