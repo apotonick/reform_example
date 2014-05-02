@@ -8,6 +8,11 @@ module Forms
     collection :songs, populate_if_empty: lambda { |*| Song.new } do
       property :name
       validates :name, presence: true
+
+      property :user, populate_if_empty: lambda { |*| Song.new } do
+        property :first_name
+        property :last_name
+      end
     end
 
     # this validation only gets triggered when params doesn't contain any songs attributes at all.

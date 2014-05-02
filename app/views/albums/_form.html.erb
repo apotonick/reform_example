@@ -15,9 +15,17 @@
   <%= f.text_field :title %>
 
   <%= f.fields_for :songs do |song| %>
-    <div>
+    <div class="box">
       <%= song.label :name %>
       <%= song.text_field :name %>
+
+      <div>
+        <%= song.fields_for :user do |user| %>
+          <%= user.label :first_name %>
+          <%= user.text_field :first_name %>
+        <% end %>
+      </div>
+
     </div>
   <% end %>
 

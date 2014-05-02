@@ -12,7 +12,7 @@ class AlbumsController < ApplicationController
 
   def new
     # end
-    album = Album.new(songs: [Song.new, Song.new])
+    album = Album.new(songs: [Song.new(user: User.new), Song.new])
     @form = Forms::AlbumForm.new(album) # TODO: tell Reform to display 2 empty song forms?
   end
 
